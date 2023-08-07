@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet">
+
+    <style>
+
+        #cat-item{
+          display: block;
+         
+        }
+        #cat-item:hover{
+          display: block;
+          background-color: gray;;
+          cursor: pointer;
+        }
+    </style>
+ 
+</head>
+<body>
+    <div id="app">
+
+        <div class="container bg-secondary my-4 p-5 text-white text-center">
+                <h1> Northern City Vue JS </h1>
+                <h3>(Point of Sale)</h3>
+        </div>
+
+        <div class="container  my-4">
+          <div class="row">
+            <div class="col-lg-2">
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item active"> MENU </li>
+                <li id="cat-item"class="list-group-item" v-for="cat in category" :key="cat" :class="{selected:cat.selected}">
+                  <span @click="selectCategory(cat)"> {{cat.name}} </span>
+                </li>
+                
+
+              </ul>
+
+            </div>
+            <div class="col-lg-6">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-warning"> Items </li>
+                </ul>
+
+              <div class="row">
+
+                <div class="col-lg-3 p-2" v-for="item in filterItems" :key="item.id" style="height:300px;">
+                  <div class="card" style="width:100%;">
+                    <img :src="item.photo" class="card-img-top img-fluid" style="width:150px;height:120px;">
+                    <div class="card-body">
+                       <ul style="font-size:10px">
+                       
+                        <li> {{item.name}} </li>
+                        <li> {{item.price}} Ks </li>
+                       </ul>
+                     
+                     
+                      <a href="#" class="btn btn-primary btn-sm form-control" @click="addOrder(item,item.id)"><i class="fa fa-plus"></i> Add </a>
+                    </div>
+                  </div>
+                </div>
+
+               
+
+
+
+              </div>
+              
+            </div>
+
+            <div class="col-lg-4">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item bg-warning"> Order List </li>
+                  <li class="list-group-item" v-for="order in orderList" :key="order"> 
+                    {{order.name}} ( {{order.price}} x {{order.qty}} ) = {{order.price * order.qty}} 
+                  </li>
+                 
+                </ul>
+
+                <ul class="list-group list-group-flush" style="margin-top:100px;">
+                  <li class="list-group-item"><h2>  Total : {{totalOrder(orderList)}}  </h2></li>
+                </ul>
+
+                <ul class="list-group list-group-flush" style="margin-top:50px;">
+                  <li class="list-group-item"><button class="btn btn-primary btn-lg form-control" >Make Payment</button></li>
+                </ul>
+
+
+            </div>
+
+
+          </div>
+         </div>
+
+       
+         
+      
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
